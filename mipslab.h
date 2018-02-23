@@ -41,11 +41,10 @@ extern const uint8_t const font[128*8];
 extern const uint8_t const icon[128]; // 128
 /* Declare text buffer for display output */
 extern char textbuffer[4][16];
-extern const uint8_t const block1[128];
-extern const uint8_t const block2[128];
-extern const uint8_t const block3[128];
-extern const uint8_t const block4[128];
-extern const uint8_t const block5[128];
+extern const uint8_t const object[16];
+extern const uint8_t const carV1[16];
+extern const uint8_t const erase[16];
+extern uint8_t Screen[512];
 
 
 /* Declare functions written by students.

@@ -3,7 +3,6 @@
    Some parts are original code written by Axel Isaksson
 
    For copyright and licensing, see file COPYING */
-
 #include <stdint.h>   /* Declarations of uint_32 and the like */
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
@@ -122,8 +121,8 @@ void display_image(int x, const uint8_t *data) {
 		
 		DISPLAY_CHANGE_TO_DATA_MODE;
 		
-		for(j = 0; j < 32; j++)
-			spi_send_recv(~data[i*32 + j]);
+		for(j = 0; j < 128; j++)
+			spi_send_recv(~data[i*128 + j]);
 	}
 }
 
@@ -240,4 +239,39 @@ char * itoaconv( int num )
   /* Since the loop always sets the index i to the next empty position,
    * we must add 1 in order to return a pointer to the first occupied position. */
   return( &itoa_buffer[ i + 1 ] );
+}
+
+int movedown(int pos){
+	int i = 0;
+	for(i = 0; i < 16; i++){
+	Screen[i + (128 * pos)] = carV1[i];
+	Screen[i + (128 * (pos - 1))] = erase[i];
+	}
+	display_image(0, Screen);
+}
+
+int moveup(int pos){
+	int i = 0;
+	for(i = 0; i < 16; i++){
+	Screen[i + (128 * pos)] = carV1[i];
+	Screen[i + (128 * (pos + 1))] = erase[i];
+	}
+	display_image(0, Screen);
+}
+
+int obstaclespawn(int pos){
+	int i = 0;
+	for(i = 0; i < 16; i++){
+	Screen[96 + i + (128 * pos)] = carV1[i];
+	}
+	display_image(0, Screen);
+}
+
+int moveobstleft(void){ // UTVECKLA
+	int i = 0;
+	for(i = 0; i < 16; i++){
+	Screen[i + (128 * pos)] = carV1[i];
+	Screen[i + (128 * (pos - 1))] = erase[i];
+	}
+	display_image(0, Screen);
 }

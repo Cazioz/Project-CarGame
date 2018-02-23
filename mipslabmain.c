@@ -6,7 +6,6 @@
    Latest update 2017-04-21 by F Lundevall
 
    For copyright and licensing, see file COPYING */
-
 #include <stdint.h>   /* Declarations of uint_32 and the like */
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
@@ -57,7 +56,6 @@ int main(void) {
 	display_init();
 	display_update();
 	
-	display_image(32, block1);
 	
 	labinit(); /* Do any lab-specific initialization */
 
