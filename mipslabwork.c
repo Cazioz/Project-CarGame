@@ -15,31 +15,22 @@
 #include "mipslab.h"  /* Declatations for these labs */
 
 volatile int * porte = (volatile int *) 0xbf886110;
-int timeoutcount = 0;
 int test = 0;
-int k = 0;
+int flag = 0;
+int i = 0;
+int click = 0;
 /* Interrupt Service Routine */
 void user_isr(void) {
-	if(IFS(0) & 0x100) {
-		
-		timeoutcount++;
-		if((getbtns() >> 2) == 0x1){
-			k = ~k;
-		}
-		if(k){
-			test= test - 2;
-			display_update();
-		display_image(test, block2);
-		display_image(test + 32, block1);
-		}
-		//*porte = *porte + 1;
-		
-		IFSCLR(0) = 0x100;
+	if((IFS(0) & 0x0100)){
+		IFS(0) = IFS(0) & 0xfffffeff;
+		flag++;
 	}
-	if (IFS(0) & 0x80){
-	*porte = *porte + 1;
-	IFSCLR(0) = 0x80;
+	
+		if(flag == 10){
+			flag = 0;
+		
 	}
+	
 	
 }
 
@@ -65,8 +56,61 @@ void labinit(void)
 
 /* This function is called repetitively from the main program */
 void labwork(void) {
+	switch(getbtns()) { 
+		
+		case 0x04  :
+			
+			if(click > 0){
+				delay( 200 );
+				click--;
+			}
+			
+			break;
+
+		case 0x02  :
+		
+			if(click < 4){
+				delay( 200 );
+				click++;
+			}
+			
+			break;
+		
+	}
 	
- //display_update();
+	switch(click) { 
+			
+			case 4  :
+			
+				display_update();
+				display_image(0, block4);
+				
+				break;
+
+			case 2  :
+			
+				display_update();
+				display_image(0, block3);
+				
+				break;
+				
+			case 1  :
+			
+				display_update();
+				display_image(0, block2);
+				
+				break; 
+				
+			case 0  :
+				
+				
+				display_update();
+				display_image(0, block1);
+				
+				break;
+			
+		}
+	display_update();
 }
 
 

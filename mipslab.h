@@ -43,6 +43,9 @@ extern const uint8_t const icon[128]; // 128
 extern char textbuffer[4][16];
 extern const uint8_t const block1[128];
 extern const uint8_t const block2[128];
+extern const uint8_t const block3[128];
+extern const uint8_t const block4[128];
+extern const uint8_t const block5[128];
 
 
 /* Declare functions written by students.
