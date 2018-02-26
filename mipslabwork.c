@@ -34,6 +34,8 @@ void user_isr(void) {
 		if(spawnflag == 20){
 			obstaclespawn(rand);
 			spawnflag = 0;
+			checkForCrash(pos);
+			
 	}
 }
 
@@ -64,6 +66,7 @@ void labwork(void) {
 				pos--;
 				moveup(pos);
 				delay( 150 );
+				rand++;
 			}
 			
 			break;
@@ -76,8 +79,8 @@ void labwork(void) {
 			break;
 	}
 	if(rand > 3)
-	{rand = 0;}
-			rand++;
+		rand = 0;
+	rand++;
 }
 
 

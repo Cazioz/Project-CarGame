@@ -262,16 +262,53 @@ int moveup(int pos){
 int obstaclespawn(int pos){
 	int i = 0;
 	for(i = 0; i < 16; i++){
-	Screen[96 + i + (128 * pos)] = carV1[i];
+	Screen[112 + i + (128 * pos)] = carV1[i];
 	}
 	display_image(0, Screen);
 }
 
+int checkForCrash(int pos){
+	int i = 0;
+	for(i = 0; i < 4; i++)
+	if(pos = i && Screen[i*128 + 17])
+		gameovercheck = 1;
+	else
+		moveobstleft();
+}
+
 int moveobstleft(void){ // UTVECKLA
 	int i = 0;
-	for(i = 0; i < 16; i++){
-	Screen[i + (128 * pos)] = carV1[i];
-	Screen[i + (128 * (pos - 1))] = erase[i];
-	}
+	int posobst = 0;
+	int i2 = 0;
+	int k = 0;
+	for(posobst = 0; posobst < 4; posobst++){
+		for(i2 = 1; i2 < 7; i2++)
+			
+			for(i = 0; i < 16; i++){
+			Screen[i + 16*i2 + posobst*128] = Screen[i + 16*i2 + 16 + posobst*128];
+			Screen[i + 16*i2 + 16 + posobst*128] = erase[i];
+			
+			/*
+			Screen[i + 16 + posobst*128] = Screen[i + 32 + posobst*128];
+			Screen[i + 32 + posobst*128] = erase[i];
+			
+			Screen[i + 32 + posobst*128] = Screen[i + 48 + posobst*128];
+			Screen[i + 48 + posobst*128] = erase[i];
+			
+			Screen[i + 48 + posobst*128] = Screen[i + 64 + posobst*128];
+			Screen[i + 64 + posobst*128] = erase[i];
+			
+			Screen[i + 64 + posobst*128] = Screen[i + 80 + posobst*128];
+			Screen[i + 80 + posobst*128] = erase[i];
+			
+			Screen[i + 80 + posobst*128] = Screen[i + 96 + posobst*128];
+			Screen[i + 96 + posobst*128] = erase[i];
+			
+			Screen[i + 96 + posobst*128] = Screen[i + 112 + posobst*128];
+			Screen[i + 112 + posobst*128] = erase[i];
+			*/ 
+			
+		}
+	}	
 	display_image(0, Screen);
 }
