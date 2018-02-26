@@ -268,12 +268,10 @@ int obstaclespawn(int pos){
 }
 
 int checkForCrash(int pos){
-	int i = 0;
-	for(i = 0; i < 4; i++)
-	if(pos = i && Screen[i*128 + 17])
-		gameovercheck = 1;
-	else
-		moveobstleft();
+	if((Screen[pos*128 + 17] == 0)){
+		return 1;
+	}
+	moveobstleft();
 }
 
 int moveobstleft(void){ // UTVECKLA

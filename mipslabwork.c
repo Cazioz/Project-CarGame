@@ -18,24 +18,50 @@ int timecount = 0;
 int spawnflag = 0;
 int pos = 0;
 int rand;
+int spawn2 = 0;
+int score = 0;
+
+char Start1[] = "Choose";
+char Start2[] = "Difficulty";
+int difficulty = 1;
+char difficultyShown[1] = "1";
+
+char gameOver[] = "Game over";
+int gameovercheck = 0;
+
+char clear[] = " ";
+
 /* Interrupt Service Routine */
 void user_isr(void) {
 	if((IFS(0) & 0x0100)){
 		IFS(0) = IFS(0) & 0xfffffeff;
 		timecount++;
 		spawnflag++;
+		
+		while (gameovercheck){
+			display_string( 1, gameOver );
+			display_update();	
+			if(getbtns() == 0x04){
+				break;
+			}
+		}
 	}
 
-		if(timecount == 2){
-			display_image(0, Screen);
-			timecount = 0;
+	if(timecount == 2){
+		display_image(0, Screen);
+		timecount = 0;
 	}
 	
-		if(spawnflag == 20){
+	if(spawnflag == 6/difficulty){
+		if(spawn2 == 2) {
 			obstaclespawn(rand);
-			spawnflag = 0;
-			checkForCrash(pos);
-			
+			*porte = *porte + 1;
+			spawn2 = 0;
+			score++;
+		}
+		spawn2++;
+		spawnflag = 0;
+		gameovercheck = checkForCrash(pos);
 	}
 }
 
@@ -43,6 +69,33 @@ void user_isr(void) {
 /* Lab-specific initialization goes here */
 void labinit(void)
 {
+	while(1) {
+		difficultyShown[0] = difficulty + '0';
+		
+		display_string( 0, Start1 );
+		display_string( 1, Start2 );
+		display_string( 3, difficultyShown);
+		display_update();	
+		
+		if(getbtns() == 0x04){
+			display_string( 0, clear );
+			display_string( 1, clear );
+			display_string( 2, clear );
+			display_string( 3, clear );
+			break;
+		}
+		
+		if(getbtns() == 0x02){
+			if(difficulty < 3){
+				difficulty++;
+			}
+			else{
+				difficulty = 1;
+			}
+			delay( 175 );
+		}
+	}
+	
 	volatile int* trise = (volatile int *) 0xbf886100; // pointer to TRISE address
 	*trise = *trise & 0xff00; // set bits 7-0 of PORT E to outputs
 	*porte = 0x0; // initialize to 0
@@ -78,9 +131,10 @@ void labwork(void) {
 			}
 			break;
 	}
+	rand++;
 	if(rand > 3)
 		rand = 0;
-	rand++;
+	
 }
 
 
