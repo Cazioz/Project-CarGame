@@ -45,6 +45,7 @@ extern const uint8_t const object[16];
 extern const uint8_t const carV1[16];
 extern const uint8_t const erase[16];
 extern uint8_t Screen[512];
+extern uint8_t ScreenRestart[512];
 
 
 /* Declare functions written by students.

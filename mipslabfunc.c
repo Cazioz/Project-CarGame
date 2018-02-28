@@ -271,7 +271,9 @@ int checkForCrash(int pos){
 	if((Screen[pos*128 + 17] == 0)){
 		return 1;
 	}
-	moveobstleft();
+	else
+		moveobstleft();
+		return 0;
 }
 
 int moveobstleft(void){ // UTVECKLA
@@ -304,7 +306,7 @@ int moveobstleft(void){ // UTVECKLA
 			
 			Screen[i + 96 + posobst*128] = Screen[i + 112 + posobst*128];
 			Screen[i + 112 + posobst*128] = erase[i];
-			*/ 
+			*/
 			
 		}
 	}	
