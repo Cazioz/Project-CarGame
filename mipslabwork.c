@@ -44,12 +44,12 @@ void user_isr(void) {
 		spawnflag++;
 		scoreCount++;
 		
-		while (gameovercheck){
+		while (gameovercheck){ // function for when car has collided, gameover
 			T2CONCLR = 0x8000;
 			display_string( 1, gameOver );
 			display_string( 2, gameOver2 );
 			display_update();	
-			if(getbtns() == 0x04){
+			if(getbtns() == 0x04){ // restart if button pushed
 				*porte = *porte - score;
 				int i = 0;
 				score = 0;
@@ -64,7 +64,7 @@ void user_isr(void) {
 				T2CONSET = 0x8000;
 			}
 		}
-		while(start) {
+		while(start) { // function for start, difficulty select
 		T2CONCLR = 0x8000;
 		difficultyShown[0] = difficulty + '0';
 		
@@ -103,7 +103,7 @@ void user_isr(void) {
 		timecount = 0;
 	}
 	
-	if(spawnflag == 6/difficulty){
+	if(spawnflag == 6/difficulty){ // determines how fast objects move and spawn
 		if(spawn2 == 2) {
 			obstaclespawn(rand);
 			spawn2 = 0;
@@ -112,7 +112,7 @@ void user_isr(void) {
 		spawnflag = 0;
 		gameovercheck = checkForCrash(pos);
 	}
-	if(scoreCount == 15){
+	if(scoreCount == 15){ // add 1 to score
 		*porte = *porte + 1;
 		score++;
 		scoreCount = 0;
@@ -142,7 +142,7 @@ void labwork(void) {
 	
 	switch(getbtns()) { 
 		case 0x04  :
-			if(pos > 0){
+			if(pos > 0){ // move car up 1 pos if pushed
 				pos--;
 				moveup(pos);
 				delay( 150 );
@@ -151,7 +151,7 @@ void labwork(void) {
 			
 			break;
 		case 0x02  :
-			if(pos < 3){
+			if(pos < 3){ // move car down 1 pos if pushed
 				pos++;
 				movedown(pos);
 				delay( 150 );

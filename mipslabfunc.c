@@ -241,7 +241,7 @@ char * itoaconv( int num )
   return( &itoa_buffer[ i + 1 ] );
 }
 
-int movedown(int pos){
+int movedown(int pos){ // function to move car down 1 pos
 	int i = 0;
 	for(i = 0; i < 16; i++){
 	Screen[i + (128 * pos)] = carV1[i];
@@ -250,7 +250,7 @@ int movedown(int pos){
 	display_image(0, Screen);
 }
 
-int moveup(int pos){
+int moveup(int pos){ // function to move car up 1 pos
 	int i = 0;
 	for(i = 0; i < 16; i++){
 	Screen[i + (128 * pos)] = carV1[i];
@@ -259,16 +259,16 @@ int moveup(int pos){
 	display_image(0, Screen);
 }
 
-int obstaclespawn(int pos){
+int obstaclespawn(int pos){ // function to spawn obstacles ("object")
 	int i = 0;
 	for(i = 0; i < 16; i++){
-	Screen[112 + i + (128 * pos)] = carV1[i];
+	Screen[112 + i + (128 * pos)] = object[i];
 	}
 	display_image(0, Screen);
 }
 
-int checkForCrash(int pos){
-	if((Screen[pos*128 + 17] == 0)){
+int checkForCrash(int pos){ // check if object in front of car == crash, else moveobstleft
+	if((Screen[pos*128 + 17] == 231)){
 		return 1;
 	}
 	else
@@ -276,7 +276,7 @@ int checkForCrash(int pos){
 		return 0;
 }
 
-int moveobstleft(void){ // UTVECKLA
+int moveobstleft(void){ // move entire screen (not car) one "step" to left ( 16 pixels )
 	int i = 0;
 	int posobst = 0;
 	int i2 = 0;
